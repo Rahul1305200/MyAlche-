@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nutrition Guide | Cook the recipes with the jar — MYALCHE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,500&family=Lato:wght@400;700;900&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --chrome:#18213d;
+    --chrome-green:#91bd50;
+    --chrome-deep:#42672f;
+    --chrome-forest:#173528;
+    --nav-bg:#1e2749;
+    --promo-bg:#fbbc34;
+    --green:#83bf40;
+    --green-deep:#4a7a2e;
+    --green-tint:#eaf3dc;
+    --forest:#12301f;
+    --bg:#ffffff;
+    --surface-2:#f7f6f1;
+    --ink:#1a1f2e;
+    --ink-soft:#2f3345;
+    --ink-muted:#5c5e70;
+    --ink-faint:#8d8fa0;
+    --border:#e8e6df;
+    --yellow:#ffd600;
+    --font-head:"Poppins","Lato",Arial,sans-serif;
+    --font-body:"Lato",Arial,Helvetica,sans-serif;
+    --serif:"Fraunces",Georgia,"Times New Roman",serif;
+    --content-max:1360px;
+    --ease:cubic-bezier(.22,.61,.36,1);
+    --space-2:8px;
+    --space-3:12px;
+    --space-4:16px;
+    --space-5:24px;
+    --space-6:32px;
+    --space-7:48px;
+    --space-8:72px;
+    --gutter:clamp(20px,3vw,40px);
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;max-width:100%;}
+  html{scroll-behavior:smooth;scrollbar-color:#4a7a2e #f7f6f1;}
+  body{
+    background:var(--bg);color:var(--ink);
+    font-family:var(--font-body);font-size:16px;line-height:1.55;
+    -webkit-font-smoothing:antialiased;overflow-x:clip;
+  }
+  a{color:inherit;text-decoration:none;}
+  button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit;}
+  img{max-width:100%;display:block;}
+  ::selection{background:var(--green-tint);color:var(--green-deep);}
+  :focus-visible{outline:2px solid var(--green-deep);outline-offset:3px;border-radius:4px;}
+  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;}
+  .wrap,.site-inner{width:min(var(--content-max),100%);margin-left:auto;margin-right:auto;padding-left:var(--gutter);padding-right:var(--gutter);}
+
+  .promo-bar{
+    background:var(--nav-bg);color:#fff;text-align:center;
+    font-size:14.5px;font-weight:700;padding:9px 40px 9px 16px;position:relative;
+  }
+  .promo-bar[hidden]{display:none;}
+  .promo-bar .promo-close{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:#fff;padding:4px;display:flex;}
+  header.site{
+    background:#ffd600;color:var(--nav-bg);
+    position:sticky;top:0;z-index:50;
+    transition:box-shadow .3s ease,background .3s ease;
+  }
+  header.site.is-stuck{box-shadow:0 10px 30px -12px rgba(0,0,0,.35);background:rgba(255,214,0,.96);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);}
+  .site-inner{display:flex;align-items:center;gap:34px;padding-top:14px;padding-bottom:14px;transition:padding .3s var(--ease);}
+  header.site.is-stuck .site-inner{padding-top:9px;padding-bottom:9px;}
+  .logo{display:flex;align-items:center;line-height:0;}
+  .logo img{height:34px;width:auto;display:block;transition:height .3s var(--ease);}
+  header.site.is-stuck .logo img{height:28px;}
+  nav.main-nav{display:flex;gap:26px;flex:1;font-family:var(--font-head);font-weight:600;font-size:14px;letter-spacing:.04em;text-transform:uppercase;}
+  nav.main-nav a{color:var(--nav-bg);display:flex;align-items:center;gap:5px;padding:8px 0;transition:color .15s;}
+  nav.main-nav a:hover,nav.main-nav a[aria-current="page"]{color:var(--forest);}
+  nav.main-nav a.has-caret::after{content:"";width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:4px solid currentColor;margin-left:2px;transition:transform .15s;}
+  .nav-item{position:relative;}
+  .nav-item.open a.has-caret::after,.nav-item:hover > a.has-caret::after,.nav-item:focus-within > a.has-caret::after{transform:rotate(180deg);}
+  .nav-dropdown{
+    position:absolute;top:100%;left:0;margin-top:14px;background:#fff;border-radius:10px;
+    box-shadow:0 20px 40px -14px rgba(0,0,0,.28);padding:10px;display:grid;grid-template-columns:repeat(2,190px);gap:2px;
+    max-height:min(70vh,520px);overflow:auto;
+    opacity:0;visibility:hidden;transform:translateY(6px);transition:opacity .15s,transform .15s,visibility .15s;z-index:60;
+  }
+  .nav-dropdown::before{content:"";position:absolute;left:0;right:0;bottom:100%;height:14px;}
+  .nav-item.open .nav-dropdown,.nav-item:hover .nav-dropdown,.nav-item:focus-within .nav-dropdown{opacity:1;visibility:visible;transform:none;}
+  .nav-dropdown a{color:var(--ink-soft) !important;font-size:14px;font-weight:500;text-transform:none;letter-spacing:0;padding:8px 10px;border-radius:6px;}
+  .nav-dropdown a:hover{background:var(--surface-2);color:var(--forest) !important;}
+  .head-actions{display:flex;align-items:center;gap:18px;}
+  .link-login{font-family:var(--font-head);font-size:13.5px;letter-spacing:.06em;text-transform:uppercase;font-weight:600;white-space:nowrap;}
+  .link-login:hover{color:var(--forest);}
+  .search-pill{display:flex;align-items:center;gap:7px;background:var(--nav-bg);color:#fff;font-family:var(--font-head);font-size:12.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:9px 18px;border-radius:999px;}
+  .search-pill:hover{background:var(--forest);}
+  .icon-btn{position:relative;color:var(--nav-bg);padding:4px;display:flex;align-items:center;justify-content:center;}
+  .icon-btn:hover{color:var(--forest);}
+  .badge{position:absolute;top:-6px;right:-8px;background:var(--forest);color:#fff;font-size:11px;font-weight:800;min-width:16px;height:16px;border-radius:999px;display:flex;align-items:center;justify-content:center;padding:0 4px;}
+  .cart-with-total{display:flex;align-items:center;gap:6px;}
+  .cart-with-total .amount{font-size:14px;font-weight:700;white-space:nowrap;}
+  .nav-toggle{display:none;color:var(--nav-bg);padding:4px;}
+  .drawer{position:fixed;inset:0;z-index:210;background:rgba(18,24,48,.6);display:none;}
+  .drawer.show{display:block;}
+  .drawer-panel{position:absolute;top:0;right:0;bottom:0;width:min(86vw,340px);background:var(--nav-bg);padding:22px 24px;display:flex;flex-direction:column;gap:6px;color:#fff;overflow:auto;}
+  .drawer.show .drawer-panel{animation:drawer-in .35s cubic-bezier(.16,1,.3,1);}
+  @keyframes drawer-in{from{transform:translateX(100%)}}
+  .drawer-panel a{font-family:var(--font-head);font-weight:600;font-size:16px;letter-spacing:.04em;text-transform:uppercase;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1);}
+  .drawer-panel a:hover,.drawer-panel a[aria-current="page"]{color:var(--green);}
+  .drawer-close{align-self:flex-end;color:#fff;padding:6px;margin-bottom:8px;}
+  .social-rail{
+    position:fixed;right:12px;top:50%;transform:translateY(-50%);z-index:30;
+    display:flex;flex-direction:column;gap:3px;padding:6px;
+    border:1px solid rgba(255,255,255,.13);border-radius:999px;
+    background:rgba(16,23,45,.72);box-shadow:0 18px 40px -24px rgba(0,0,0,.65);
+    -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+  }
+  .social-rail a,.social-rail a.fb,.social-rail a.tw,.social-rail a.ig,.social-rail a.th,.social-rail a.yt,.social-rail a.pin,.social-rail a.sn,.social-rail a.tt{
+    width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    color:#fff;background:transparent;opacity:.72;transition:opacity .15s,background .15s;
+  }
+  .social-rail a:hover{opacity:1;background:rgba(255,255,255,.12);}
+  .social-rail a svg{width:14px;height:14px;}
+  .overlay{position:fixed;inset:0;background:rgba(30,39,73,.55);z-index:200;display:none;align-items:flex-start;justify-content:center;padding:120px 16px 24px;}
+  .overlay.show{display:flex;}
+  .search-box{width:min(680px,92vw);background:#fff;border-radius:14px;padding:24px;box-shadow:0 30px 60px rgba(0,0,0,.25);}
+  .search-box input{width:100%;border:none;border-bottom:2px solid var(--border);padding:12px 4px;font-size:20px;font-family:var(--font-body);outline:none;color:var(--ink);}
+  .search-box input:focus{border-bottom-color:var(--forest);}
+  .hits{margin:16px 0 0;padding:0;list-style:none;max-height:46vh;overflow:auto;}
+  .hits a{display:flex;justify-content:space-between;gap:12px;padding:10px 12px;border-radius:10px;background:var(--surface-2);font-weight:700;}
+  .hits a:hover{background:var(--green-tint);color:var(--forest);}
+  .hits .empty{color:var(--ink-muted);font-weight:500;padding:8px 4px;}
+
+  .lead{padding:var(--space-7) 0 var(--space-6);}
+  .lead-grid{display:grid;grid-template-columns:minmax(280px,.86fr) minmax(0,1.14fr);gap:var(--space-7);align-items:center;}
+  .lead-copy{display:flex;flex-direction:column;gap:var(--space-6);}
+  .lead-intro,.lead-offer{display:flex;flex-direction:column;align-items:flex-start;}
+  .lead-intro{gap:var(--space-4);}
+  .lead-offer{gap:var(--space-5);}
+  .lead h1{
+    margin:0;font-family:var(--font-head);font-weight:800;
+    font-size:clamp(40px,5.4vw,72px);line-height:.96;letter-spacing:-.035em;
+  }
+  .lead h1 em{font-family:var(--serif);font-style:italic;font-weight:500;letter-spacing:-.02em;}
+  .lead-copy p{margin:0;max-width:42ch;font-size:17.5px;line-height:1.55;color:var(--ink-soft);}
+  .lead .picks{margin:0;}
+  .lead .pick{background:var(--surface-2);box-shadow:none;}
+  .shelf-buy{
+    display:inline-flex;align-items:center;gap:14px;
+    background:var(--ink);color:#fff;border-radius:999px;padding:8px 8px 8px 22px;
+    font-family:var(--font-head);font-weight:700;
+  }
+  .shelf-buy:hover{background:var(--green-deep);}
+  .shelf-buy.added{background:var(--green-deep);}
+  .shelf-buy small{display:block;font-family:var(--font-body);font-weight:700;font-size:12.5px;letter-spacing:.02em;opacity:.75;}
+  .shelf-buy b{font-size:15px;letter-spacing:.04em;text-transform:uppercase;}
+  .shelf-buy .go{
+    width:48px;height:48px;border-radius:50%;background:var(--yellow);color:var(--nav-bg);
+    display:flex;align-items:center;justify-content:center;flex:none;
+  }
+  .shelf-note{margin:0;font-size:15px;line-height:1.5;color:var(--ink-muted);max-width:42ch;}
+
+  .stage{
+    position:relative;display:block;width:100%;padding:0;border-radius:22px;overflow:hidden;
+    background:#111;aspect-ratio:16/9;color:#fff;text-align:left;
+  }
+  .stage img,.stage iframe{width:100%;height:100%;object-fit:cover;border:0;}
+  .stage .play{
+    position:absolute;left:50%;top:46%;transform:translate(-50%,-50%);
+    width:74px;height:74px;border-radius:50%;background:var(--green);
+    display:flex;align-items:center;justify-content:center;
+    box-shadow:0 16px 30px -12px rgba(0,0,0,.55);
+    transition:transform .35s var(--ease),background .2s;
+  }
+  .stage:hover .play{transform:translate(-50%,-50%) scale(1.06);background:var(--green-deep);}
+  .stage .cap{
+    position:absolute;left:0;right:0;bottom:0;padding:28px 18px 14px;
+    background:linear-gradient(transparent,rgba(0,0,0,.72));
+    font-family:var(--font-head);font-weight:700;font-size:18px;letter-spacing:-.02em;
+  }
+  .stage.is-on .play,.stage.is-on .cap{display:none;}
+  .stage.is-on img{animation:posterOut .35s var(--ease) forwards;}
+  @keyframes posterOut{to{opacity:0;transform:scale(1.04);}}
+
+  .shelf{padding:var(--space-6) 0 var(--space-7);}
+  .shelf-row{
+    display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:var(--space-5) var(--space-4);align-items:stretch;
+  }
+  .jar{display:flex;flex-direction:column;min-width:0;height:100%;}
+  .jar-photo{
+    background:linear-gradient(180deg,#faf9f5,var(--surface-2));
+    border-radius:16px;aspect-ratio:1;display:flex;align-items:center;justify-content:center;padding:12px;
+  }
+  .jar-photo img{width:100%;height:100%;object-fit:contain;}
+  .jar-name{
+    margin-top:var(--space-3);min-height:2.6em;
+    font-family:var(--font-head);font-weight:600;font-size:14px;line-height:1.3;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  }
+  .jar-name:hover{color:var(--green-deep);}
+  .jar-row{margin-top:auto;padding-top:var(--space-3);display:flex;align-items:center;justify-content:space-between;gap:var(--space-2);}
+  .jar-price{font-weight:800;font-size:15px;color:var(--green-deep);font-variant-numeric:tabular-nums;}
+  .add{
+    flex:none;font-family:var(--font-head);font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase;
+    background:var(--ink);color:#fff;border-radius:999px;padding:8px 14px;
+  }
+  .add:hover{background:var(--green-deep);}
+  .add.added{background:var(--green-deep);}
+
+  .jumps{display:flex;flex-wrap:wrap;gap:var(--space-2);margin-top:var(--space-6);padding-top:var(--space-5);border-top:1px solid var(--border);font-family:var(--font-head);font-weight:600;font-size:13px;}
+  .jumps a{padding:var(--space-2) var(--space-3);border-radius:999px;background:var(--surface-2);}
+  .jumps a:hover{background:var(--green-tint);color:var(--forest);}
+
+  .dish{padding:var(--space-8) 0;}
+  .dish:nth-child(even){background:var(--surface-2);}
+  .dish-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(280px,.85fr);gap:var(--space-7);align-items:center;}
+  .dish:nth-child(even) .dish-grid{grid-template-columns:minmax(280px,.85fr) minmax(0,1.15fr);}
+  .dish:nth-child(even) .stage{order:2;}
+  .dish-copy{display:flex;flex-direction:column;gap:var(--space-4);}
+  .dish-copy .picks{margin-top:var(--space-2);}
+  .dish h2{margin:0;font-family:var(--font-head);font-weight:800;font-size:clamp(28px,3vw,40px);letter-spacing:-.03em;line-height:1.05;}
+  .dish .blurb{margin:0;color:var(--ink-soft);max-width:46ch;line-height:1.55;}
+  .picks{display:flex;flex-direction:column;gap:var(--space-3);margin:0;padding:0;list-style:none;}
+  .pick{
+    display:grid;grid-template-columns:64px 1fr auto;gap:var(--space-3);align-items:center;
+    background:#fff;border-radius:14px;padding:var(--space-2) var(--space-3) var(--space-2) var(--space-2);
+    box-shadow:0 10px 22px -16px rgba(0,0,0,.28);
+  }
+  .dish:nth-child(odd) .pick{background:var(--surface-2);box-shadow:none;}
+  .pick img{width:64px;height:64px;object-fit:contain;background:#fff;border-radius:10px;}
+  .pick a{font-family:var(--font-head);font-weight:600;font-size:14.5px;line-height:1.3;}
+  .pick a:hover{color:var(--green-deep);}
+  .pick .meta{display:flex;flex-direction:column;align-items:flex-end;gap:var(--space-2);}
+  .pick .price{font-weight:800;color:var(--green-deep);font-variant-numeric:tabular-nums;}
+
+  footer.site{position:relative;background:#ffd600;color:var(--nav-bg);padding:var(--space-8) 0 0;overflow:hidden;}
+  .footer-grid{display:grid;grid-template-columns:minmax(140px,.7fr) 1fr 1.15fr .9fr;gap:var(--space-6) var(--space-7);align-items:start;padding:0 0 var(--space-6);position:relative;z-index:1;}
+  .footer-brand img{height:44px;width:auto;display:block;}
+  .footer-col h2{margin:0 0 var(--space-4);font-family:var(--font-head);font-size:13px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--forest);}
+  .footer-col ul{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:var(--space-3);}
+  .footer-col a,.footer-col li{font-size:15.5px;color:rgba(30,39,73,.82);}
+  .footer-col a{display:inline-block;transition:color .15s,transform .25s var(--ease);}
+  .footer-col a:hover{color:var(--forest);transform:translateX(5px);}
+  .footer-contact li{display:flex;align-items:flex-start;gap:10px;line-height:1.45;}
+  .footer-contact svg{width:16px;height:16px;flex:none;margin-top:3px;color:var(--forest);}
+  .footer-contact a:hover{transform:none;}
+  .footer-social{display:flex;flex-wrap:wrap;gap:10px;max-width:200px;}
+  .footer-social a{width:40px;height:40px;border-radius:50%;background:var(--nav-bg);color:#fff;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .3s cubic-bezier(.16,1,.3,1);}
+  .footer-social a:hover{background:var(--forest);transform:translateY(-4px);}
+  .footer-social svg{width:16px;height:16px;display:block;}
+  .footer-bottom{position:relative;z-index:2;border-top:1px solid rgba(30,39,73,.18);padding:var(--space-5) 0 var(--space-6);display:flex;align-items:center;justify-content:space-between;gap:var(--space-4);flex-wrap:wrap;font-size:13.5px;color:rgba(30,39,73,.68);}
+  .footer-bottom a{color:rgba(30,39,73,.86);margin-left:20px;}
+  .footer-bottom a:hover{color:var(--forest);}
+  .footer-mark{position:relative;z-index:0;text-align:center;font-family:var(--font-head);font-weight:800;font-size:clamp(64px,18vw,280px);line-height:.78;letter-spacing:-.05em;color:transparent;-webkit-text-stroke:1.5px rgba(30,39,73,.16);margin-bottom:-.08em;user-select:none;pointer-events:none;white-space:nowrap;}
+  .to-top{position:fixed;right:22px;bottom:22px;z-index:40;width:48px;height:48px;border-radius:50%;background:var(--nav-bg);color:#fff;display:flex;align-items:center;justify-content:center;box-shadow:0 14px 30px -10px rgba(0,0,0,.5);opacity:0;pointer-events:none;transition:opacity .3s;}
+  .to-top.show{opacity:1;pointer-events:auto;}
+  .to-top:hover{background:var(--green-deep);}
+  .to-top svg{width:18px;height:18px;}
+
+  @media (max-width:1100px){
+    nav.main-nav{gap:18px;font-size:13px;}
+    .site-inner{gap:20px;}
+    .footer-grid{grid-template-columns:1fr 1fr;}
+  }
+  @media (max-width:980px){
+    nav.main-nav,.link-login{display:none;}
+    .nav-toggle{display:flex;}
+    .site-inner{justify-content:space-between;}
+    .logo{flex:1;}
+    .lead-grid,.dish-grid,.dish:nth-child(even) .dish-grid{grid-template-columns:1fr;}
+    .dish:nth-child(even) .stage{order:0;}
+    .shelf-row{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px;}
+    .jar{flex:0 0 46%;scroll-snap-align:start;}
+    .wrap,.site-inner{padding-left:16px;padding-right:16px;}
+  }
+  @media (max-width:640px){
+    .wrap,.site-inner{padding-left:16px;padding-right:16px;}
+    .promo-bar{font-size:12.5px;padding:8px 36px 8px 14px;}
+    .site-inner{padding:12px 16px;gap:12px;}
+    .logo img,header.site.is-stuck .logo img{height:28px;}
+    .search-pill span,.cart-with-total .amount{display:none;}
+    .search-pill{padding:9px 12px;}
+    .social-rail{display:none;}
+    .lead,.shelf,.dish{padding-block:var(--space-6);}
+    .lead-copy{gap:var(--space-5);}
+    .footer-grid{grid-template-columns:1fr;gap:var(--space-6);}
+    .footer-bottom{flex-direction:column;align-items:flex-start;gap:10px;}
+    .footer-bottom a{margin:0 18px 0 0;}
+    .pick{grid-template-columns:56px 1fr;}
+    .pick .meta{grid-column:2;flex-direction:row;align-items:center;justify-content:space-between;}
+    .lead h1{font-size:40px;}
+    .jar{flex:0 0 78%;}
+  }
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{animation:none !important;transition:none !important;}
+    html{scroll-behavior:auto;}
+  }
+</style>
+</head>
+<body>
+
+<div class="promo-bar" id="promoBar">
+  🚨 Now Offering AfterPay and Affirm | PAY LATER, Buy Now at checkout 🚨
+  <button class="promo-close" id="promoClose" type="button" aria-label="Dismiss announcement">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+  </button>
+</div>
+
+<header class="site" id="siteHeader">
+  <div class="site-inner">
+      <a class="logo" href="home redesign.html" aria-label="MYALCHE home"><img src="assets/home/main-logo.webp" alt="MYALCHE"></a>
+      <nav class="main-nav" aria-label="Main">
+        <div class="nav-item" id="shopNavItem">
+          <a href="shop page archive redesign.html" class="has-caret">Shop</a>
+          <div class="nav-dropdown">
+            <a href="https://www.myalche.com/product-category/new-arrivals/">New Arrivals</a>
+            <a href="https://www.myalche.com/product-category/bundles/">Bundles</a>
+            <a href="https://www.myalche.com/product-category/health-food-shop/">Health Food Shop</a>
+            <a href="https://www.myalche.com/product-category/health-capsules/">Health Capsules</a>
+            <a href="https://www.myalche.com/product-category/mushrooms/">Mushrooms</a>
+            <a href="https://www.myalche.com/product-category/accessories/">Accessories</a>
+            <a href="https://www.myalche.com/product-category/body-care/">Body Care</a>
+            <a href="https://www.myalche.com/product-category/clothing/">Clothing</a>
+            <a href="https://www.myalche.com/product-category/herbal-elixirs/">Herbal Elixirs</a>
+            <a href="https://www.myalche.com/product-category/health-herbs/">Health Herbs</a>
+            <a href="https://www.myalche.com/product-category/tea-bags/">Tea Bags</a>
+            <a href="https://www.myalche.com/product-category/wildcrafted-sea-moss/">Wildcrafted Sea Moss</a>
+            <a href="https://www.myalche.com/product-category/seasonings/">Seasonings</a>
+            <a href="https://www.myalche.com/product-category/dried-food/">Dried Food</a>
+            <a href="https://www.myalche.com/product-category/food-powders/">Food Powders</a>
+            <a href="https://www.myalche.com/product-category/fruits-vegetables/">Fruits / Vegetables</a>
+            <a href="https://www.myalche.com/product-category/juices/">Juices / Drinks</a>
+            <a href="https://www.myalche.com/product-category/loose-herbs/">Loose Herbs</a>
+            <a href="https://www.myalche.com/product/gift-card/">Gift Card</a>
+            <a href="https://www.myalche.com/product-category/snacks/">Snacks</a>
+          </div>
+        </div>
+        <a href="https://www.myalche.com/product-category/meal-prep-delivery/">Meal Prep Delivery</a>
+        <a href="nutrition guide redesign.html" aria-current="page">Nutrition Guide</a>
+        <a href="https://www.myalche.com/news-articles-and-blog-posts/">News Articles | Blog Posts</a>
+        <a href="https://www.myalche.com/product/gift-card/">Gift Card</a>
+      </nav>
+      <div class="head-actions">
+        <a class="link-login" href="https://www.myalche.com/my-account/">Login / Register</a>
+        <button class="search-pill" id="searchBtn" type="button" aria-label="Search">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2.4"/><path d="M21 21l-4.3-4.3" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/></svg>
+          <span>Search</span>
+        </button>
+        <a class="icon-btn cart-with-total" id="cartPill" href="cart redesign.html" aria-label="Cart">
+          <span style="position:relative;display:flex;">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 7h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7z" stroke="currentColor" stroke-width="1.8"/><path d="M9 7V5.8A3 3 0 0 1 12 3a3 3 0 0 1 3 2.8V7" stroke="currentColor" stroke-width="1.8"/></svg>
+            <span class="badge" id="cartBadge">0</span>
+          </span>
+          <span class="amount" id="cartTotal">$0.00</span>
+        </a>
+        <button class="icon-btn" id="wishBtn" type="button" aria-label="Wishlist">
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 20s-7-4.6-7-9.2A4 4 0 0 1 12 8a4 4 0 0 1 7-1.2c0 4.6-7 13.2-7 13.2z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/></svg>
+          <span class="badge" id="wishBadge">0</span>
+        </button>
+        <button class="nav-toggle" id="navToggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="drawer">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+    </div>
+</header>
+
+<div class="drawer" id="drawer">
+  <div class="drawer-panel">
+    <button class="drawer-close" id="drawerClose" type="button" aria-label="Close menu"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg></button>
+    <a href="home redesign.html">Home</a>
+    <a href="shop page archive redesign.html">Shop</a>
+    <a href="https://www.myalche.com/product-category/meal-prep-delivery/">Meal Prep Delivery</a>
+    <a href="nutrition guide redesign.html" aria-current="page">Nutrition Guide</a>
+    <a href="https://www.myalche.com/news-articles-and-blog-posts/">News Articles | Blog Posts</a>
+    <a href="https://www.myalche.com/product/gift-card/">Gift Card</a>
+    <a href="https://www.myalche.com/my-account/">Login / Register</a>
+  </div>
+</div>
+
+<div class="social-rail" id="socialRail" aria-label="Follow MYALCHE"></div>
+
+<main>
+  <section class="lead" id="dish-tacos">
+    <div class="wrap lead-grid">
+      <div class="lead-copy">
+        <div class="lead-intro">
+          <h1>Cook the <em>guide</em>.</h1>
+          <p>Eight plant-based recipes from the MYALCHE kitchen. The jar that matches the dish is on the same row, at the shop price.</p>
+        </div>
+        <div class="lead-offer">
+          <button class="shelf-buy" id="addShelf" type="button">
+            <span><small>Six jars, one checkout</small><b>Add the shelf</b></span>
+            <span class="go" aria-hidden="true">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M6 7h12l-1.2 11.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7z" stroke="currentColor" stroke-width="1.8"/><path d="M9 7V5.8A3 3 0 0 1 12 3a3 3 0 0 1 3 2.8V7" stroke="currentColor" stroke-width="1.8"/></svg>
+            </span>
+          </button>
+          <p class="shelf-note" id="shelfNote"></p>
+        </div>
+        <ul class="picks" id="leadPicks"></ul>
+      </div>
+      <div id="leadStage"></div>
+    </div>
+  </section>
+
+  <section class="shelf" aria-label="The seasoning shelf">
+    <div class="wrap">
+      <div class="shelf-row" id="shelfRow"></div>
+      <nav class="jumps" id="jumps" aria-label="Recipes"></nav>
+    </div>
+  </section>
+
+  <div id="dishes"></div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="assets/home/main-logo.webp" alt="MYALCHE">
+      </div>
+      <div class="footer-col">
+        <h2>Quick link</h2>
+        <ul>
+          <li><a href="https://www.myalche.com/about/">About</a></li>
+          <li><a href="https://www.myalche.com/contact-us/">Contact Us</a></li>
+          <li><a href="https://www.myalche.com/refund-policy/">Refund Policy</a></li>
+          <li><a href="https://www.myalche.com/shipping-policy/">Shipping Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Contact</h2>
+        <ul class="footer-contact">
+          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2" stroke="currentColor" stroke-width="1.9"/><path d="M3.5 6.5l8.5 6 8.5-6" stroke="currentColor" stroke-width="1.9"/></svg><a href="mailto:info@MYALCHE.com">info@MYALCHE.com</a></li>
+          <li><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11z" stroke="currentColor" stroke-width="1.9" stroke-linejoin="round"/><circle cx="12" cy="10" r="2.6" stroke="currentColor" stroke-width="1.9"/></svg><span>P.O. BOX 90819<br>LOS ANGELES, CA 90009</span></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h2>Follow us</h2>
+        <div class="footer-social" id="footerSocial"></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2018-2026. All Rights Reserved. MYALCHE</span>
+      <span><a href="https://www.myalche.com/privacy-policy/">Privacy Policy</a></span>
+    </div>
+  </div>
+  <div class="footer-mark" aria-hidden="true">MYALCHE</div>
+</footer>
+
+<button class="to-top" id="toTop" type="button" aria-label="Back to top"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+
+
+<div class="overlay" id="searchOverlay" role="dialog" aria-modal="true" aria-label="Search this guide">
+  <div class="search-box">
+    <input type="search" id="searchInput" placeholder="Search a dish or a jar" autocomplete="off">
+    <ul class="hits" id="hits"></ul>
+  </div>
+</div>
+
+<script src="cart-drawer.js"></script>
+<script>
+(function () {
+  var NBSP = "\u202f";
+  var PRODUCTS = {
+    taco: { name: "Taco Seasoning", price: 9.99, href: "https://www.myalche.com/product/taco-seasoning/", img: "https://www.myalche.com/wp-content/uploads/2023/06/Screenshot-2023-06-17-at-7.14.04-PM.png" },
+    birria: { name: "Birria Taco Seasoning", price: 9.99, href: "https://www.myalche.com/product/birria-taco-seasoning/", img: "https://www.myalche.com/wp-content/uploads/2023/05/Birria-Taco-Seasoning.webp" },
+    jerk: { name: "Caribbean Jerk Seasoning", price: 11.99, href: "https://www.myalche.com/product/caribbean-jerk-seasoning/", img: "https://www.myalche.com/wp-content/uploads/2023/05/Screenshot-2023-05-25-at-10.14.10-AM.png" },
+    smoke: { name: "BBQ Smoke Seasoning", price: 10.99, href: "https://www.myalche.com/product/bbq-smoke-seasoning/", img: "https://www.myalche.com/wp-content/uploads/2026/07/Screenshot-2026-07-24-at-4.51.20-AM.webp" },
+    bbq: { name: "BBQ Seasoning | 8 oz.", price: 15.99, href: "https://www.myalche.com/product/bbq-seasoning/", img: "https://www.myalche.com/wp-content/uploads/2023/07/Screenshot-2023-07-30-at-2.25.37-PM-1_11zon.webp" },
+    cajun: { name: "Cajun Style Seasoning", price: 10.99, href: "https://www.myalche.com/product/cajun-style-seasoning/", img: "https://www.myalche.com/wp-content/uploads/2026/07/Screenshot-2026-07-24-at-11.49.00-PM.webp" },
+    broth: { name: "Vegetable Broth Seasoning | 8 oz.", price: 12.99, href: "https://www.myalche.com/product/vegetable-broth-seasoning/", img: "https://www.myalche.com/wp-content/uploads/2023/05/Screenshot-2023-05-25-at-11.28.29-AM.png" },
+    chili: { name: "Chili Crunch Oil | 4 oz.", price: 9.99, href: "https://www.myalche.com/product/chili-crunch-oil/", img: "https://www.myalche.com/wp-content/uploads/2026/07/Screenshot-2026-07-24-at-8.38.19-AM.webp" },
+    all: { name: "All Purpose Seasoning", price: 10.99, href: "https://www.myalche.com/product/all-purpose-seasoning/", img: "https://www.myalche.com/wp-content/uploads/2024/11/Screenshot-2024-11-27-at-4.01.50" + NBSP + "PM-png.webp" },
+    savory: { name: "Savory Seasoning", price: 9.99, href: "https://www.myalche.com/product/savory-seasoning/", img: "https://www.myalche.com/wp-content/uploads/2023/05/Screenshot-2023-05-25-at-12.40.45-PM.png" },
+    salt: { name: "Seasoning Salt", price: 9.99, href: "https://www.myalche.com/product/seasoning-salt/", img: "https://www.myalche.com/wp-content/uploads/2023/05/Screenshot-2023-05-25-at-10.11.53-AM-600x600_11zon.webp" },
+    bagel: { name: "Everything Bagel Seasoning", price: 9.99, href: "https://www.myalche.com/product/everything-bagel-seasoning/", img: "https://www.myalche.com/wp-content/uploads/2026/07/Screenshot-2026-07-24-at-12.09.48-AM.webp" },
+    med: { name: "Mediterranean Seasoning", price: 10.99, href: "https://www.myalche.com/product/mediterranean-seasoning/", img: "https://www.myalche.com/wp-content/uploads/2023/07/Screenshot-2023-07-02-at-11.50.20-AM.png" },
+    lemon: { name: "Lemon Pepper Seasoning | 8 oz.", price: 11.99, href: "https://www.myalche.com/product/lemon-pepper-seasoning/", img: "https://www.myalche.com/wp-content/uploads/2025/06/Screenshot-2025-06-16-at-1.50.42" + NBSP + "PM.webp" }
+  };
+  var SHELF = ["taco", "smoke", "cajun", "chili", "broth", "all"];
+  var DISHES = [
+    { id: "tacos", title: "Caribbean Taco Bites", yt: "eLLI-dBI7DQ", line: "Plant-based taco bites. Taco seasoning, birria, or Caribbean jerk — pick the heat.", jars: ["taco", "birria", "jerk"] },
+    { id: "sausages", title: "Vegan Sausages", yt: "wkYnY_rDRv4", line: "Soy-free, gluten-free sausages. Savory, salt, and the all-purpose blend sit with this one.", jars: ["savory", "salt", "all"] },
+    { id: "ribs", title: "Soul Food BBQ Ribs", yt: "VjbkWjgbLDA", line: "The BBQ video. Smoke seasoning, the 8 oz BBQ jar, and jerk.", jars: ["smoke", "bbq", "jerk"] },
+    { id: "cheese", title: "Vegan Cheese", yt: "rh2Mm2NSuzM", line: "The cheese that melts. Season the board with savory, everything bagel, or Mediterranean.", jars: ["savory", "bagel", "med"] },
+    { id: "gumbo", title: "Vegan Gumbo", yt: "igam68c1bzs", line: "Plant-based gumbo. Cajun style, vegetable broth seasoning, and seasoning salt.", jars: ["cajun", "broth", "salt"] },
+    { id: "haul", title: "Grocery Haul and Fridge Tour", yt: "oG1y98Lbunw", line: "What a plant-based fridge holds. All purpose, lemon pepper, and chili crunch for the week of cooking.", jars: ["all", "lemon", "chili"] },
+    { id: "ramen", title: "Ramen and Veggie Fried Rice", yt: "bAZuv1XXyow", line: "Ramen and fried rice. Chili crunch is made for this, with broth seasoning and savory.", jars: ["chili", "broth", "savory"] },
+    { id: "burgers", title: "Vegan Grilled Cheeseburgers", yt: "xq8zyQkkKi4", line: "The grilled cheeseburger. All purpose, BBQ smoke, and Caribbean jerk.", jars: ["all", "smoke", "jerk"] }
+  ];
+
+  var money = function (n) { return "$" + n.toFixed(2); };
+  var shelfTotal = SHELF.reduce(function (s, id) { return s + PRODUCTS[id].price; }, 0);
+  document.getElementById("shelfNote").textContent = "Taco, BBQ smoke, Cajun, chili crunch, vegetable broth, and all purpose. " + money(shelfTotal) + " before shipping.";
+
+  function stageHtml(dish, lead) {
+    return '<button class="stage" type="button" data-yt="' + dish.yt + '" data-title="' + dish.title + '" aria-label="Play ' + dish.title + '">' +
+      '<img src="https://i.ytimg.com/vi/' + dish.yt + '/hqdefault.jpg" alt="">' +
+      '<span class="play" aria-hidden="true"><svg width="28" height="28" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></span>' +
+      (lead ? '<span class="cap">' + dish.title + '</span>' : '') +
+    '</button>';
+  }
+
+  document.getElementById("leadStage").innerHTML = stageHtml(DISHES[0], true);
+  document.getElementById("leadPicks").innerHTML = DISHES[0].jars.map(function (id) {
+    var p = PRODUCTS[id];
+    return '<li class="pick"><img src="' + p.img + '" alt=""><div><a href="' + p.href + '">' + p.name + '</a></div>' +
+      '<div class="meta"><span class="price">' + money(p.price) + '</span><button class="add" type="button" data-add="' + id + '">Add</button></div></li>';
+  }).join("");
+
+  document.getElementById("shelfRow").innerHTML = SHELF.map(function (id) {
+    var p = PRODUCTS[id];
+    return '<article class="jar">' +
+      '<a class="jar-photo" href="' + p.href + '"><img src="' + p.img + '" alt="' + p.name + '"></a>' +
+      '<a class="jar-name" href="' + p.href + '">' + p.name + '</a>' +
+      '<div class="jar-row"><span class="jar-price">' + money(p.price) + '</span>' +
+      '<button class="add" type="button" data-add="' + id + '">Add</button></div></article>';
+  }).join("");
+
+  document.getElementById("jumps").innerHTML = DISHES.map(function (d) {
+    return '<a href="#dish-' + d.id + '">' + d.title + '</a>';
+  }).join("");
+
+  document.getElementById("dishes").innerHTML = DISHES.slice(1).map(function (d) {
+    var picks = d.jars.map(function (id) {
+      var p = PRODUCTS[id];
+      return '<li class="pick"><img src="' + p.img + '" alt=""><div><a href="' + p.href + '">' + p.name + '</a></div>' +
+        '<div class="meta"><span class="price">' + money(p.price) + '</span><button class="add" type="button" data-add="' + id + '">Add</button></div></li>';
+    }).join("");
+    return '<section class="dish" id="dish-' + d.id + '"><div class="wrap dish-grid">' +
+      stageHtml(d, false) +
+      '<div class="dish-copy"><h2>' + d.title + '</h2><p class="blurb">' + d.line + '</p><ul class="picks">' + picks + '</ul></div></div></section>';
+  }).join("");
+
+  var CART_KEY = "myalche_cart";
+  function getCart() {
+    try { return JSON.parse(sessionStorage.getItem(CART_KEY)) || []; }
+    catch (e) { return []; }
+  }
+  function saveCart(items) { sessionStorage.setItem(CART_KEY, JSON.stringify(items)); }
+  function slug(name) { return name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, ""); }
+  function refreshPill() {
+    var cart = getCart();
+    var count = cart.reduce(function (s, i) { return s + (i.qty || 0); }, 0);
+    var total = cart.reduce(function (s, i) { return s + i.price * (i.qty || 0); }, 0);
+    document.getElementById("cartBadge").textContent = count;
+    document.getElementById("cartTotal").textContent = money(total);
+  }
+  function addProduct(id, qty) {
+    var p = PRODUCTS[id];
+    var cart = getCart();
+    var itemId = slug(p.name);
+    var ex = cart.find(function (i) { return i.id === itemId; });
+    if (ex) ex.qty += qty || 1;
+    else cart.push({ id: itemId, title: p.name, price: p.price, qty: qty || 1, image: p.img, desc: "" });
+    saveCart(cart);
+    refreshPill();
+    document.dispatchEvent(new CustomEvent("cart:updated"));
+    if (window.CartDrawer) CartDrawer.open(p.name);
+  }
+  document.addEventListener("click", function (e) {
+    var add = e.target.closest("[data-add]");
+    if (add) {
+      addProduct(add.getAttribute("data-add"), 1);
+      add.classList.add("added");
+      add.textContent = "Added";
+      return;
+    }
+    var stage = e.target.closest(".stage");
+    if (stage && !stage.classList.contains("is-on")) {
+      var yt = stage.getAttribute("data-yt");
+      var title = stage.getAttribute("data-title");
+      stage.classList.add("is-on");
+      window.setTimeout(function () {
+        stage.outerHTML = '<div class="stage is-on"><iframe src="https://www.youtube-nocookie.com/embed/' + yt + '?autoplay=1&rel=0" title="' + title + '" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe></div>';
+      }, window.matchMedia("(prefers-reduced-motion: reduce)").matches ? 0 : 280);
+    }
+  });
+  document.getElementById("addShelf").addEventListener("click", function () {
+    var cart = getCart();
+    SHELF.forEach(function (id) {
+      var p = PRODUCTS[id];
+      var itemId = slug(p.name);
+      var ex = cart.find(function (i) { return i.id === itemId; });
+      if (ex) ex.qty += 1;
+      else cart.push({ id: itemId, title: p.name, price: p.price, qty: 1, image: p.img, desc: "" });
+    });
+    saveCart(cart);
+    refreshPill();
+    document.dispatchEvent(new CustomEvent("cart:updated"));
+    var btn = document.getElementById("addShelf");
+    btn.classList.add("added");
+    btn.querySelector("b").textContent = "Shelf added";
+    if (window.CartDrawer) CartDrawer.open("The shelf");
+  });
+  document.addEventListener("cart:updated", refreshPill);
+  refreshPill();
+  if (window.CartDrawer) CartDrawer.init({ checkoutUrl: "cart redesign.html", productUrl: "product single redesign.html" });
+
+  var SOCIALS = [
+    { id: "facebook", label: "Facebook", href: "https://www.facebook.com/MYALCHE", d: "M14 9h3V6h-3c-2.2 0-4 1.8-4 4v2H8v3h2v7h3v-7h3l1-3h-4v-2a1 1 0 0 1 1-1z" },
+    { id: "x", label: "X", href: "https://x.com/MYALCHE", d: "M17.5 3h3l-6.6 7.5L21.8 21h-6l-4.7-6.1L5.6 21h-3l7-8L2.5 3h6.2l4.2 5.6L17.5 3z" },
+    { id: "instagram", label: "Instagram", href: "https://www.instagram.com/MYALCHE", d: "" },
+    { id: "youtube", label: "YouTube", href: "https://www.youtube.com/MYALCHE", d: "M21.6 7.2a2.5 2.5 0 0 0-1.8-1.8C18.2 5 12 5 12 5s-6.2 0-7.8.4A2.5 2.5 0 0 0 2.4 7.2 26 26 0 0 0 2 12a26 26 0 0 0 .4 4.8 2.5 2.5 0 0 0 1.8 1.8C5.8 19 12 19 12 19s6.2 0 7.8-.4a2.5 2.5 0 0 0 1.8-1.8A26 26 0 0 0 22 12a26 26 0 0 0-.4-4.8zM10 15V9l5.2 3L10 15z" },
+    { id: "threads", label: "Threads", href: "https://www.threads.com/@MYALCHE", d: "M12 2c5.5 0 9 3.6 9 10s-3.5 10-9 10-9-3.6-9-10S6.5 2 12 2zm.4 5.6c-2.6 0-4 1.6-4.2 3.9l1.9.2c.1-1.5.9-2.3 2.3-2.3 1.3 0 2 .6 2.1 1.7-3.6.3-5.6 1.4-5.6 3.6 0 1.7 1.3 2.9 3.2 2.9 1.5 0 2.5-.6 3.1-1.6l.2 1.4h1.7v-5.6c0-2.7-1.4-4.2-4.7-4.2z" },
+    { id: "pinterest", label: "Pinterest", href: "https://www.pinterest.com/MYALCHE", d: "M12 2a10 10 0 0 0-3.6 19.3c-.1-.8-.2-2 0-2.9l1.2-5s-.3-.6-.3-1.5c0-1.4.8-2.5 1.8-2.5.9 0 1.3.6 1.3 1.4 0 .9-.6 2.2-.9 3.4-.2 1 .5 1.8 1.5 1.8 1.8 0 3.1-2.3 3.1-5 0-2.1-1.4-3.6-4-3.6a4.5 4.5 0 0 0-4.7 4.5c0 .9.3 1.5.8 2 .1.1.1.2.1.4l-.2.9c0 .2-.2.3-.4.2-1.2-.5-1.8-1.8-1.8-3.4 0-2.5 2.1-5.5 6.3-5.5 3.4 0 5.6 2.4 5.6 5 0 3.4-1.9 6-4.7 6-1 0-1.9-.5-2.2-1.1l-.6 2.4c-.2.8-.7 1.7-1 2.3A10 10 0 1 0 12 2z" },
+    { id: "snapchat", label: "Snapchat", href: "https://t.snapchat.com/o0X88bMC", d: "M12 2.5c3 0 4.9 2.2 4.9 5.2 0 .8-.1 1.6-.1 2 .3.2.7.2 1 .1.6-.2 1.2.1 1.3.6.1.5-.2.9-.9 1.2-.6.3-1.4.5-1.5.9-.1.4.9 2.3 3 3 .5.2.5.7 0 .9-.6.3-1.6.4-1.8.7-.1.2 0 .6-.2.8-.2.2-.7.1-1.3.1-.7 0-1.5.1-2.3.7-.7.5-1.3 1-2.1 1s-1.4-.5-2.1-1c-.8-.6-1.6-.7-2.3-.7-.6 0-1.1.1-1.3-.1-.2-.2-.1-.6-.2-.8-.2-.3-1.2-.4-1.8-.7-.5-.2-.5-.7 0-.9 2.1-.7 3.1-2.6 3-3-.1-.4-.9-.6-1.5-.9-.7-.3-1-.7-.9-1.2.1-.5.7-.8 1.3-.6.3.1.7.1 1-.1 0-.4-.1-1.2-.1-2 0-3 1.9-5.2 4.9-5.2z" },
+    { id: "tiktok", label: "TikTok", href: "https://www.tiktok.com/@MYALCHE", d: "M16.5 3c.4 2.1 1.7 3.5 3.8 3.7v2.7c-1.4.1-2.7-.3-3.9-1v5.9c0 4.2-3.6 7-7.3 5.7-2.3-.8-3.8-2.9-3.8-5.4 0-3.1 2.6-5.6 5.7-5.5v2.8c-.4-.1-.8-.1-1.2-.1-1.4.2-2.4 1.5-2.1 2.9.2 1.1 1.2 1.9 2.3 1.9 1.4 0 2.6-1.1 2.6-2.5V3h3.9z" }
+  ];
+  function socialMarkup(forRail) {
+    var cls = { facebook: "fb", x: "tw", instagram: "ig", youtube: "yt", threads: "th", pinterest: "pin", snapchat: "sn", tiktok: "tt" };
+    return SOCIALS.map(function (s) {
+      var icon = s.id === "instagram"
+        ? '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3.5" y="3.5" width="17" height="17" rx="5" stroke="currentColor" stroke-width="2" fill="none"></rect><circle cx="12" cy="12" r="3.6" stroke="currentColor" stroke-width="2" fill="none"></circle><circle cx="17" cy="7" r="1.2" fill="currentColor"></circle></svg>'
+        : '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="' + s.d + '"/></svg>';
+      return '<a class="' + (forRail ? cls[s.id] : "") + '" href="' + s.href + '" aria-label="' + s.label + '" target="_blank" rel="noopener">' + icon + '</a>';
+    }).join("");
+  }
+  document.getElementById("footerSocial").innerHTML = socialMarkup(false);
+  document.getElementById("socialRail").innerHTML = socialMarkup(true);
+
+  var drawer = document.getElementById("drawer");
+  function setDrawer(open) {
+    drawer.classList.toggle("show", open);
+    document.documentElement.classList.toggle("menu-open", open);
+    document.getElementById("navToggle").setAttribute("aria-expanded", open ? "true" : "false");
+  }
+  document.getElementById("promoClose").addEventListener("click", function () { document.getElementById("promoBar").hidden = true; });
+  document.getElementById("navToggle").addEventListener("click", function () { setDrawer(true); });
+  document.getElementById("drawerClose").addEventListener("click", function () { setDrawer(false); });
+  drawer.addEventListener("click", function (e) { if (e.target === drawer) setDrawer(false); });
+
+  var searchOverlay = document.getElementById("searchOverlay");
+  var searchInput = document.getElementById("searchInput");
+  var hits = document.getElementById("hits");
+  function setSearch(open) { searchOverlay.classList.toggle("show", open); }
+  function renderHits(q) {
+    q = (q || "").trim().toLowerCase();
+    var rows = [];
+    DISHES.forEach(function (d) {
+      if (!q || d.title.toLowerCase().indexOf(q) !== -1) rows.push('<li><a href="#dish-' + d.id + '">' + d.title + '<span>Recipe</span></a></li>');
+    });
+    Object.keys(PRODUCTS).forEach(function (id) {
+      var p = PRODUCTS[id];
+      if (!q || p.name.toLowerCase().indexOf(q) !== -1) rows.push('<li><a href="' + p.href + '">' + p.name + '<span>' + money(p.price) + '</span></a></li>');
+    });
+    hits.innerHTML = rows.length ? rows.join("") : '<li class="empty">Nothing on this guide matches that.</li>';
+  }
+  document.getElementById("searchBtn").addEventListener("click", function () {
+    setSearch(true);
+    renderHits("");
+    searchInput.value = "";
+    searchInput.focus();
+  });
+  searchInput.addEventListener("input", function () { renderHits(searchInput.value); });
+  searchOverlay.addEventListener("click", function (e) {
+    if (e.target === searchOverlay || e.target.closest("a")) setSearch(false);
+  });
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") { setSearch(false); setDrawer(false); }
+  });
+
+  var toTop = document.getElementById("toTop");
+  window.addEventListener("scroll", function () {
+    document.getElementById("siteHeader").classList.toggle("is-stuck", window.scrollY > 8);
+    toTop.classList.toggle("show", window.scrollY > 500);
+  }, { passive: true });
+  toTop.addEventListener("click", function () { window.scrollTo({ top: 0, behavior: "smooth" }); });
+})();
+</script>
+</body>
+</html>
